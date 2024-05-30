@@ -14,15 +14,15 @@ async fn main() {
     env_logger::init();
 
     let host_id = env::var("HOST_ID").unwrap_or_default();
-    let libsql_url = env::var("LIBSQL_URL").expect("LIBSQL_URL must be set");
+    let libsql_sync_url = env::var("LIBSQL_SYNC_URL").expect("LIBSQL_SYNC_URL must be set");
     let libsql_auth_token = env::var("LIBSQL_AUTH_TOKEN").unwrap_or_default();
-    let libsql_replica_path =
-        env::var("LIBSQL_REPLICA_PATH").expect("LIBSQL_REPLICA_PATH must be set");
+    let libsql_db_path =
+        env::var("LIBSQL_DB_PATH").expect("LIBSQL_DB_PATH must be set");
 
     let redis_url = env::var("REDIS_URL").expect("REDIS_URL must be set");
     let redis_channel = env::var("REDIS_CHANNEL").unwrap_or_else(|_| "libsql-syncd".to_string());
 
-    let db = Builder::new_remote_replica(libsql_replica_path, libsql_url, libsql_auth_token)
+    let db = Builder::new_remote_replica(libsql_db_path, libsql_sync_url, libsql_auth_token)
         .build()
         .await
         .unwrap();
