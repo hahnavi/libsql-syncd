@@ -24,8 +24,6 @@ To run **libsql-syncd**, follow these steps:
       - `REDIS_CHANNEL`: Channel name of the Redis Pub/Sub.
       - `HOST_ID`: ID of the host. If the value matches the message from Redis Pub/Sub, sync will be skipped.
   
-    
-
 1. Run the App:
 
     - After building the project, navigate to the `target/release` directory.
@@ -35,3 +33,6 @@ To run **libsql-syncd**, follow these steps:
         ./libsql-syncd
         ```
 
+## Trigger Synchronization
+
+To trigger synchronization, send a message to the Redis Pub/Sub channel specified in the environment variable (`REDIS_CHANNEL`). The payload is the host ID that triggers the synchronization. **libsql-syncd** will skip the sync if the payload matches the `HOST_ID` from the environment variable.
